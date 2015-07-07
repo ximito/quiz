@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var partials = require('express-partials');
+
 var routes = require('./routes/index');
 
 // Se quita el contexto users
@@ -16,6 +18,8 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// add partials
+app.use(partials());
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
