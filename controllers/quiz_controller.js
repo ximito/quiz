@@ -93,7 +93,7 @@ exports.index = function (req,res){
     function (quizes){
       var i;
       for(i=0; i < quizes.length;i++){
-        console.log(quizes[i].pregunta);
+        console.log(quizes[i].respuesta);
       }
       res.render('quizes/index',{quizes: quizes});
     }
