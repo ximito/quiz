@@ -36,9 +36,9 @@ var Quiz = sequelize.import(path.join(__dirname,'quiz'));
 exports.Quiz = Quiz;
 
 // sequelize.sync() crea e instancia tabla de preguntas en BBDD
-sequelize.sync().success(function (){
+sequelize.sync().then(function (){
   // success(..) ejecuta el manejador una vez creada la Tabla
-  Quiz.count().success(function (count){
+  Quiz.count().then(function (count){
     // la tabla se inicializa si esta vacia
     if(count==0){
       Quiz.create({
