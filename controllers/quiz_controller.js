@@ -91,10 +91,6 @@ exports.load = function (req,res,next,quizId){
 exports.index = function (req,res){
   models.Quiz.findAll().then(
     function (quizes){
-      var i;
-      for(i=0; i < quizes.length;i++){
-        console.log(quizes[i].respuesta);
-      }
       res.render('quizes/index',{quizes: quizes});
     }
   ).catch (function (error) {next(error);});
