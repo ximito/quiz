@@ -1,75 +1,3 @@
-
-
-/*
-
-1ª version
-
-// GET /quizes/question
-exports.question = function (req,res){
-  res.render('quizes/question',{title: 'Quiz', pregunta: 'Capital de Italia'});
-};
-
-// GET /quizes/answer
-exports.answer = function (req,res){
-  if(req.query.respuesta === 'Roma'){
-    res.render('quizes/answer',{title: 'Quiz', respuesta: 'Correcto'});
-  }else{
-    res.render('quizes/answer',{title: 'Quiz', respuesta: 'Incorrecto'});
-  }
-
-};
-
-2ª version
-
-// GET /quizes/question
-exports.question = function (req,res){
-  models.Quiz.findAll().success(function (quiz)){
-    res.render('quizes/question',{title: 'Quiz', pregunta: quiz[0].pregunta});
-  })
-};
-
-// GET /quizes/answer
-exports.answer = function (req,res){
-  models.Quiz.findAll().success(function (quiz)){
-    if(req.query.respuesta === quiz[0].respuesta){
-      res.render('quizes/answer',{title: 'Quiz', respuesta: 'Correcto'});
-    }else{
-      res.render('quizes/answer',{title: 'Quiz', respuesta: 'Incorrecto'});
-    }
-  })
-};
-
-3ª version
-
-// GET /quizes
-exports.index = function (req,res){
-  models.Quiz.findAll().success(function (quizes)){
-    res.render('quizes/index.ejs',{quizes: quizes});
-  })
-};
-
-
-// GET /quizes/:id
-exports.show = function (req,res){
-  models.Quiz.find.(req.param.quizId).then(function(quiz){
-      res.render('quizes/show'),{quiz: quiz};
-  })
-};
-
-// GET /quizes/:id/answer
-exports.answer = function (req,res){
-  models.Quiz.find.(req.param.quizId).then(function(quiz){
-    if(req.query.respuesta === quiz.respuesta){
-      res.render('quizes/answer',{quiz: quiz, respuesta: 'Correcto'});
-    }else{
-      res.render('quizes/answer',{quiz: quiz, respuesta: 'Incorrecto'});
-    }
-  })
-};
-
-
-*/
-
 var models = require('../models/models.js');
 
 
@@ -89,11 +17,22 @@ exports.load = function (req,res,next,quizId){
 
 // GET /quizes
 exports.index = function (req,res){
+
+if (req.query.search) {
+  var criterio = ('%' + req.query.search + '%').replace(/ /g, '%');
+  models.Quiz.findAll({where: ["pregunta like ?", criterio],order: 'pregunta ASC'}).then(
+    function(quizes) {
+      res.render('quizes/index', {quizes: quizes});
+    }
+  ).catch(function(error) { next(error);});
+}else {
   models.Quiz.findAll().then(
     function (quizes){
       res.render('quizes/index',{quizes: quizes});
     }
   ).catch (function (error) {next(error);});
+}
+
 };
 
 
