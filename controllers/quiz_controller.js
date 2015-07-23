@@ -22,13 +22,13 @@ if (req.query.search) {
   var criterio = ('%' + req.query.search + '%').replace(/ /g, '%');
   models.Quiz.findAll({where: ["pregunta like ?", criterio],order: 'pregunta ASC'}).then(
     function(quizes) {
-      res.render('quizes/index', {quizes: quizes});
+      res.render('quizes/index', {quizes: quizes,search: req.query.search});
     }
   ).catch(function(error) { next(error);});
 }else {
   models.Quiz.findAll().then(
     function (quizes){
-      res.render('quizes/index',{quizes: quizes});
+      res.render('quizes/index',{quizes: quizes, search: ""});
     }
   ).catch (function (error) {next(error);});
 }
