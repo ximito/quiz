@@ -19,7 +19,7 @@ exports.load = function (req,res,next,quizId){
 exports.index = function (req,res){
 
 if (req.query.search) {
-  var criterio = ('%' + req.query.search.trim() + '%').replace(/ /g, '%');
+  var criterio = ('%' + req.query.search.trim() + '%').replace(/\s/g, '%');
   models.Quiz.findAll({where: ["pregunta like ?", criterio],order: 'pregunta ASC'}).then(
     function(quizes) {
       res.render('quizes/index', {quizes: quizes,search: req.query.search});
