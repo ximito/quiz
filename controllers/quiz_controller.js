@@ -60,7 +60,7 @@ exports.author = function (req,res){
 exports.new = function(req,res){
   // crea el objeto quiz
   var quiz = models.Quiz.build(
-    {pregunta:"Pregunta",respuesta: "Respuesta", tematica: "Temática"}
+    {pregunta:"Pregunta",respuesta: "Respuesta", tematica: "otro"}
   );
   res.render('quizes/new',{quiz:quiz , errors: []});
 };
