@@ -10,11 +10,11 @@
 <tr>
   <td>
     <select value="<%= quizes[i].tematica %>" disabled>
-      <option value="otro" >Otro</option>
-      <option value="humanidades">Humanidades</option>
-      <option value="ocio">Ocio</option>
-      <option value="ciencia">Ciencia</option>
-      <option value="tecnologia">Tecnología</option>
+      <option value="otro" <% if(quizes[i].tematica==='otro') {%> selected <%}%> >Otro</option>
+      <option value="humanidades" <% if(quizes[i].tematica==='humanidades') {%> selected <%}%> >Humanidades</option>
+      <option value="ocio" <% if(quizes[i].tematica==='ocio') {%> selected <%}%> >Ocio</option>
+      <option value="ciencia" <% if(quizes[i].tematica==='ciencia') {%> selected <%}%> >Ciencia</option>
+      <option value="tecnologia" <% if(quizes[i].tematica==='tecnologia') {%> selected <%}%> >Tecnología</option>
     </select>
   </td>
   <td><a href="/quizes/<%= quizes[i].id %>"> <%= quizes[i].pregunta %> </a></td>
