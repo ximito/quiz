@@ -9,13 +9,11 @@
 <% var i; for(i=0; i < quizes.length;i++){%>
 <tr>
   <td>
-    <select value="<%= quizes[i].tematica %>" disabled>
-      <option value="otro" <% if(quizes[i].tematica==='otro') {%> selected <%}%> >Otro</option>
-      <option value="humanidades" <% if(quizes[i].tematica==='humanidades') {%> selected <%}%> >Humanidades</option>
-      <option value="ocio" <% if(quizes[i].tematica==='ocio') {%> selected <%}%> >Ocio</option>
-      <option value="ciencia" <% if(quizes[i].tematica==='ciencia') {%> selected <%}%> >Ciencia</option>
-      <option value="tecnologia" <% if(quizes[i].tematica==='tecnologia') {%> selected <%}%> >Tecnología</option>
-    </select>
+      <% if(quizes[i].tematica==='otro') {%> Otro <%}%>
+      <% if(quizes[i].tematica==='humanidades') {%> Humanidades <%}%>
+      <% if(quizes[i].tematica==='ocio') {%> Ocio <%}%>
+      <% if(quizes[i].tematica==='ciencia') {%> Ciencia <%}%>
+      <% if(quizes[i].tematica==='tecnologia') {%> Tecnología <%}%>
   </td>
   <td><a href="/quizes/<%= quizes[i].id %>"> <%= quizes[i].pregunta %> </a></td>
   <td><a href="/quizes/<%= quizes[i].id %>/edit"> <button>editar</button></a></td>
