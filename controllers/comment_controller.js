@@ -6,7 +6,7 @@ exports.load = function (req,res,next, commentId){
       where: {
         id: Number(commentId)
       }
-    }).then(function(comment)){
+    }).then(function(comment){
       if(comment){
         req.comment = comment;
         next();
