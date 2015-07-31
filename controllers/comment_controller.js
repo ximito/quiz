@@ -50,6 +50,6 @@ exports.publish = function(req, res){
 
   req.comment.save(
     {fields: ["publicado"]}
-  ).then (function() { res.redirect('/quizes' + req.params.quizId);}
+  ).then (function() { res.redirect('/quizes/' + req.params.quizId);}
   ).catch(function(error){next(error)});
 };
