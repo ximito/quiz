@@ -3,7 +3,8 @@ var models = require('../models/models.js');
 
 //Autoload - factoriza el codigo si ruta incluye :quizId
 exports.load = function (req,res,next,quizId){
-  models.Quiz.find(quizId).then(
+  models.Quiz.find({where:{ id: Number(quizId) }, include: [{model: models.Comment}]})
+  .then(
       function(quiz){
         if(quiz){
           req.quiz = quiz;
@@ -83,7 +84,7 @@ exports.create = function(req,res){
           });
       }
     }
-  );
+  ).catch (function (error) {next(error);});
 };
 
 //GET /quizes/:id/edit
@@ -108,10 +109,11 @@ exports.update = function(req,res){
         // save: guarda campos pregunta y respuesta en BD
         req.quiz.save( {fields: ["pregunta","respuesta","tematica"]})
         // redireccion a lista de preguntas
-        .then(function(){ res.redirect('/quizes');});
+        .then(function(){ res.redirect('/quizes');})
+        .catch (function (error) {next(error);});
       }
     }
-  );
+  ).catch (function (error) {next(error);});
 
 };
 
