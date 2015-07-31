@@ -44,8 +44,9 @@ exports.create = function(req,res){
   ).catch (function (error) {next(error);});
 };
 
-
+//GET /quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish
 exports.publish = function(req, res){
+
   req.comment.publicado = true;
 
   req.comment.save({fields: ["publicado"]})
