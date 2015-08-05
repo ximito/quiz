@@ -43,7 +43,24 @@ app.use(function (req,res,next){
   }
   // Hacer visible req.session en las vistas
   res.locals.session = req.session;
-  next();
+
+  var now = Date.now();
+  var diff=0;
+  var last;
+
+  if(req.session.user){
+    last = new Date(req.session.user.last);
+    diff = now - last;
+    if(diff > 120000 ){
+      res.redirect('/logout');
+    }else{
+      next();
+    }
+  }else{
+    res.redirect('/login');
+  }
+
+
 
 });
 
