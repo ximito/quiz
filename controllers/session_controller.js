@@ -3,6 +3,7 @@
 exports.loginRequired = function(req,res,next){
 
   if(req.session.user){
+    req.session.user.last = Date.now();
     next();
   }else{
     res.redirect('/login');
@@ -37,7 +38,6 @@ exports.create = function(req,res){
       // Crear req.sesssion.user y guardar campos id y username
       // La session se define por la existencia de req.session.user
       req.session.user = {id:user.id, username:user.username};
-      req.session.user.last = Date.now();
       res.redirect(req.session.redir.toString()); //redireccion a path anterior a login
 
     });
@@ -48,7 +48,7 @@ exports.destroy = function (req,res) {
 
   var ruta = req.session.redir.toString(); //redireccion a path anterior a login
   if(req.session.user.last){
-    ruta = '/';
+    ruta = '/login';
   }
   delete req.session.user;
   res.redirect(ruta);

@@ -53,12 +53,11 @@ app.use(function (req,res,next){
     diff = now - last;
     if(diff > 120000 ){
       res.redirect('/logout');
-    }else {
-      next();
     }
-  }else{
-    next();
   }
+  
+  next();
+
 
 });
 
