@@ -52,10 +52,10 @@ app.use(function (req,res,next){
     last = new Date(req.session.user.last);
     diff = now - last;
     if(diff > 120000 ){
-      res.redirect('/logout');
+      delete req.session.user;
     }
   }
-  
+
   next();
 
 
