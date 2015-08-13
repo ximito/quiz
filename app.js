@@ -42,17 +42,22 @@ app.use(session({
             saveUninitialized: false,       //
             cookie: { maxAge: 60000}  // Tiempo de la sesion, expiración de la cookie en 2 min.
 }));
+
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function (req,res,next){
 
+
+  // Hacer visible req.session en las vistas
+  req.session.touch();
+  res.locals.session = req.session;
+
   // guardar path en session.redir para despues de login
   if(!req.path.match(/\/login|\/logout/)){
     req.session.redir = req.path;
   }
-  // Hacer visible req.session en las vistas
-  res.locals.session = req.session;
+
 
       if(req.session.user){
           isFromSession = true;
