@@ -65,8 +65,7 @@ app.use(function (req,res,next){
           if(isFromSession){
               isFromSession = false;
               var err = new Error('Sesión Finalizada');
-              err.status = 1001;
-              next(err);
+              err.status = 1001;            
           }
       }
 
