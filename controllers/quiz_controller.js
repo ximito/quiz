@@ -74,7 +74,7 @@ exports.create = function(req,res){
   quiz.validate().then(
     function(err){
       if(err){
-        res.render('/quizes/new', {quiz: quiz, errors: err.errors});
+        res.render('quizes/new', {quiz: quiz, errors: err.errors});
       }else{
         // guarda en BD los campos pregunta y respuesta de quiz
         quiz.save({fields: ["pregunta","respuesta","tematica"]}).then(
