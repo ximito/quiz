@@ -31,7 +31,15 @@ app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded());
 app.use(cookieParser('Quiz 2015 Ximo'));
-app.use(session());
+//app.use(session());
+app.use(session({
+            name: 'quiz-2015-ximo', // configuración de la cookie
+            secret: 'ximo',
+            resave: true,       // Forces the session to be saved back to the session store
+            rolling: true,      // Force a cookie to be set on every response. This resets the expiration date.
+            saveUninitialized: false,       //
+            cookie: { maxAge: 60000}  // Tiempo de la sesion, expiración de la cookie en 2 min.
+}));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -44,17 +52,16 @@ app.use(function (req,res,next){
   // Hacer visible req.session en las vistas
   res.locals.session = req.session;
 
-  var now = Date.now();
-  var diff=0;
-  var last;
-
-  if(req.session.user){
-    last = new Date(req.session.user.last);
-    diff = now - last;
-    if(diff > 120000 ){
-      delete req.session.user;
-    }
-  }
+      if(req.session.user){
+          isFromSession = true;
+      }else{
+          if(isFromSession){
+              isFromSession = false;
+              var err = new Error('Sesión Finalizada');
+              err.status = 1001;
+              next(err);
+          }
+      }
 
   next();
 

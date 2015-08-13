@@ -3,7 +3,6 @@
 exports.loginRequired = function(req,res,next){
 
   if(req.session.user){
-    req.session.user.last = Date.now();
     next();
   }else{
     res.redirect('/login');
@@ -46,7 +45,10 @@ exports.create = function(req,res){
 //DELETE /logout -- Destruir sesssion
 exports.destroy = function (req,res) {
 
-  delete req.session.user;
+  if(req.session.user){
+		delete req.session.user;
+	}
+
   res.redirect(req.session.redir.toString()); //redireccion a path anterior a login
 
 };
